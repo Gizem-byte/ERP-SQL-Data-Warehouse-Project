@@ -77,3 +77,14 @@ CREATE TABLE bronze.erp_salesdocument_items(
 	__index_level_0__ NVARCHAR(50)
 );
 GO
+
+IF OBJECT_ID ('bronze.erp_region_code_mapping','U') IS NOT NULL
+   DROP TABLE bronze.erp_region_code_mapping;
+GO
+
+CREATE TABLE bronze.erp_region_code_mapping(
+	Country_Code NVARCHAR(50),
+	Region_ID NVARCHAR(50),
+	Region_Name NVARCHAR(50),
+);
+GO
