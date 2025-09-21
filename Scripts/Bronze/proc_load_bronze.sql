@@ -96,6 +96,23 @@ BEGIN
 		PRINT '----------------------------------------------------------------------';
 
 
+		SET @start_time = GETDATE();
+		PRINT '>> TRUNCATING TABLE: bronze.erp_region_code_mapping';
+		TRUNCATE TABLE bronze.erp_region_code_mapping;
+
+		PRINT '>> INSERTING DATA INTO: bronze.erp_region_code_mapping';
+		BULK INSERT bronze.erp_region_code_mapping
+		FROM 'C:\Users\gizem\Desktop\region_code_mapping.csv'
+		WITH (
+		  FIRSTROW = 2,
+		  FIELDTERMINATOR = ',',
+		  TABLOCK
+		);
+		SET @end_time = GETDATE();
+		PRINT '>> LOAD DURATION: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + ' seconds';
+		PRINT '----------------------------------------------------------------------';
+
+
 		SET @batch_end_time = GETDATE();
 		PRINT '==================================================================';
 		PRINT 'LOADING BRONZE LATER IS COMPLETED';
